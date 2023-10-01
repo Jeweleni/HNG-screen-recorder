@@ -1,0 +1,18 @@
+{
+  "short_name": "React App",
+  "name": "HelpMeOut",
+  "icons": {
+    "11": "icon11",
+    "16": "logo192.png",
+    "48": "logo192.png",
+    "128": "logo192.png"
+  },
+  "manifest_version": 3,
+  "version": "1.0",
+  "description": "A basic Chrome extension that lets you record your screen and share.",
+  "action": {
+    "default_popup": "index.html"
+},
+"permissions": [  "activeTab","desktopCapture"]
+
+}
