@@ -4,9 +4,12 @@ import video from "../src/images/video.svg";
 import video2 from "../src/images/video2.svg";
 import link from "../src/images/link.svg";
 import more from "../src/images/more.svg";
+import Popup from "./Popup";
 
 const VideoRepository = () =>{
     return(
+        <div>
+        <Popup/>
         <div className="files-div">
             <h3>Recent files</h3>
             <div className="overall-video-div">
@@ -27,6 +30,7 @@ const VideoRepository = () =>{
             more = {more}
             />
             </div>
+        </div>
         </div>
     )
 }

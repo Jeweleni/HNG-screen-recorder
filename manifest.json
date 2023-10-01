@@ -1,0 +1,19 @@
+{
+  "short_name": "EMJCREATES",
+  "name": "Jewel screen recorder",
+  "icons": {
+  },
+  "manifest_version": 3,
+  "version": "1.0",
+  "description": "A Chrome extension that records the user's screen.",
+  "action": {
+    "default_popup": "index.html"
+},
+"host_permissions": [
+  "http://*/",
+  "https://*/*"
+],
+"permissions": [  "activeTab","scripting",
+"tabs","desktopCapture"]
+
+}
