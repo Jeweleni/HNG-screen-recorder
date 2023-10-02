@@ -1,0 +1,38 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+	padding: 10px;
+}
+
+.btn_class {
+	color: white;
+}
+h2 {
+	margin-bottom: 5px;
+}
+
+.btn_class button {
+	color: white;
+	font-weight: 600;
+	width: 100%;
+	margin-bottom: 3px;
+	padding: 5px;
+	border: 0;
+	cursor: pointer;
+
+	outline: none;
+	border-radius: 3px;
+}
+
+#btn_start {
+	background: teal;
+}
+
+#btn_stop {
+	background: red;
+}
+
