@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 console.log("I have been injected")
 
 var recorder = null;
