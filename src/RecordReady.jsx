@@ -11,7 +11,7 @@ import Footer from "./Footer.jsx";
 import { Link } from "react-router-dom"
 
 
-const BACKEND_VIDEO_ENDPOINT = ""
+const BACKEND_VIDEO_ENDPOINT = "https://hngvideostreamer.onrender.com"
 
 const RecordReady = () => {
   const [videoURL, setVideoURL] = useState("")

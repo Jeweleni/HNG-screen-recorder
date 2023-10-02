@@ -7,7 +7,7 @@
   "version": "1.0",
   "description": "A Chrome extension that records the user's screen.",
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "./src/Popup.jsx"
 },
 "host_permissions": [
   "http://*/",

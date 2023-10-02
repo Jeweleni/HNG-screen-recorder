@@ -19,8 +19,6 @@ import resume from "../src/images/resume.svg";
 import toggleOff from "../src/images/toggle-off.svg";
 import "./App.css";
 
-const BACKEND_API_ENDPOINT = "http://localhost:5000/api/video-upload";
-
 const Popup = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [mediaStream, setMediaStream] = useState(null);
@@ -29,6 +27,9 @@ const Popup = () => {
   const [enableAudio, setEnableAudio] = useState(true);
   const [enableVideo, setEnableVideo] = useState(true);
 
+
+  const BACKEND_API_ENDPOINT =
+    "https://hngvideostreamer.onrender.com/api/upload-video";
   const toggleRecording = () => {
     if (mediaRecorder) {
       if (mediaRecorder.state === "recording") {
@@ -57,30 +58,42 @@ const Popup = () => {
       });
       setMediaStream(stream);
 
-      const recordedChunks = [];
       const recorder = new MediaRecorder(stream, { mimeType: "video/webm" });
+      const recordedChunks = [];
       setMediaRecorder(recorder);
-
       recorder.ondataavailable = (e) => {
+        console.log("Data available:", e.data.size);
         if (e.data.size > 0) {
           recordedChunks.push(e.data);
         }
+        console.log("recordedChunks:", recordedChunks)
       };
-
       recorder.onstop = async () => {
         const blob = new Blob(recordedChunks, { type: "video/webm" });
+        // Send the blob data to the server
         const formData = new FormData();
-        formData.append("recording", blob, "recording.mp4");
+        formData.append("recording", blob, "recording.webm");
+        console.log(formData);
 
-        const response = await fetch(BACKEND_API_ENDPOINT, {
-          method: "POST",
-          body: formData,
-        });
+        // To access and log individual fields
+        console.log("Recording Field:", formData.get("recording"));
 
-        if (response.ok) {
-          console.log("Video upload successful");
-        } else {
-          console.error("Video upload failed");
+        // To iterate and log all entries
+        for (const entry of formData.entries()) {
+          console.log(entry[0], entry[1]);
+        }
+        try {
+          const response = await fetch(BACKEND_API_ENDPOINT, {
+            method: "POST",
+            body: formData,
+          });
+          if (response.ok) {
+            console.log("Video upload successful");
+          } else {
+            console.error("Video upload failed");
+          }
+        } catch (error) {
+          console.error("Error sending video data:", error);
         }
         setIsRecording(false);
       };
@@ -170,7 +183,7 @@ const Popup = () => {
                 className="overlay-img"
                 alt="pause-icon"
               />
-              {isPaused ? <h5>Paused</h5> : <h5>Play</h5>}
+              {isPaused ? <p>Paused</p> : <p>Play</p>}
             </div>
             <div className="overlay-icon">
               <img
@@ -179,15 +192,15 @@ const Popup = () => {
                 src={stop}
                 alt="stop-icon"
               />
-              <h5>Stop</h5>
+              <p>Stop</p>
             </div>
             <div className="overlay-icon">
               <img src={cam} alt="cam-icon" />
-              <h5>Camera</h5>
+              <p>Camera</p>
             </div>
             <div className="overlay-icon">
               <img src={mic} alt="mic-icon" />
-              <h5>Mic</h5>
+              <p>Mic</p>
             </div>
             <img className="overlay-trash" src={trash} alt="trash-icon" />
           </div>

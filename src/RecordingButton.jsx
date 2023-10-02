@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const BACKEND_API_URL = "https://your-backend-api.com/upload";
+const BACKEND_API_URL = "https://hngvideostreamer.onrender.com/upload";
 
 function RecordingButton() {
   const [isRecording, setIsRecording] = useState(false);
@@ -28,16 +28,23 @@ function RecordingButton() {
         track.stop();
       });
 
-      // Send the recorded content to the backend
+      const key = `${Date.now()}-${Math.floor(Math.random() * 1000000000000)}`
       const recordedChunks = [];
       const mediaRecorder = new MediaRecorder(mediaStream, {
         mimeType: "video/webm",
       });
 
-      mediaRecorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
+      mediaRecorder.ondataavailable = async(e) => { 
+        // if (e.data.size > 0) {
+          const response = await fetch(`https://hngvideostreamer.onrender.com/upload2/${key}`, {
+			body: e.data,
+			method: 'POST',
+			headers: { 'Content-Type': 'application/octet-stream' }
+		})
+
+		console.log(response)
           recordedChunks.push(e.data);
-        }
+        // }
       };
 
       mediaRecorder.onstop = () => {
